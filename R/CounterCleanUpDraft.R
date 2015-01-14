@@ -1,4 +1,4 @@
-#' Counter Clean Up Draft
+#' Counter Clean Up
 #' A function to bind and process Logie counter data
 #' This function allows you to bind together mulitple counter data files, remove errors and produce a master datafile.
 #' @param path.to.folder This is the file path for the folder that contains all data files for processing.
