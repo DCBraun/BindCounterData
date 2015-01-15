@@ -1,4 +1,4 @@
-#' Counter Clean Up
+#' Counter Clean Up 
 #' A function to bind and process Logie counter data
 #' This function allows you to bind together mulitple counter data files, remove errors and produce a master datafile.
 #' @param path.to.folder This is the file path for the folder that contains all data files for processing.
@@ -18,7 +18,8 @@ counter.data.cleanup<-function(path.to.folder, no.channels, site.name, year){
                        sep="", 
                        fill=TRUE, 
                        stringsAsFactors=FALSE)[,c(1:7)]
-  #stringsAsFactors=FALSE is important because conversion of numeric factors to numeric is problematic
+  #stringsAsFactors=FALSE is important because conversion 
+  #of numeric factors to numeric can be problematic.
   
   colnames(counter.data1)<-c("file", 
                              "date", 
@@ -39,7 +40,7 @@ counter.data.cleanup<-function(path.to.folder, no.channels, site.name, year){
   #write.csv(counter.data3, '~/Dropbox/Sample Counter Data/test.csv')
   counter.data4<-data.frame("file"=counter.data3$file, 
                             "date.time"=as.POSIXlt(strptime(paste(counter.data3$date, counter.data3$time, sep="-"), format='%d/%m/%y-%H:%M:%S')),
-                            "date"=as.character(counter.data3$date),
+                            "date"=as.character(as.POSIXlt(strptime(counter.data3$date, format="%d/%m/%y"))),
                             "time"=as.character(counter.data3$time),
                             "X"=as.numeric(counter.data3$X),
                             "channel"=as.numeric(counter.data3$channel),
@@ -57,7 +58,7 @@ counter.data.cleanup<-function(path.to.folder, no.channels, site.name, year){
   
   counter.data<-counter.data[order(counter.data$date.time),]
   #Now write a new text file with only the graphics data. The row names, column names and quotes must be removed.
-  
+    
   write.csv(x=counter.data[,-2], 
             file=paste(path.to.folder,
                        site.name, 

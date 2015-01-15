@@ -2,7 +2,7 @@
 % Please edit documentation in R/CounterCleanUpDraft.R
 \name{counter.data.cleanup}
 \alias{counter.data.cleanup}
-\title{Counter Clean Up Draft
+\title{Counter Clean Up
 A function to bind and process Logie counter data
 This function allows you to bind together mulitple counter data files, remove errors and produce a master datafile.}
 \usage{
@@ -18,7 +18,7 @@ counter.data.cleanup(path.to.folder, no.channels, site.name, year)
 \item{year}{Year of counter operation.}
 }
 \description{
-Counter Clean Up Draft
+Counter Clean Up
 A function to bind and process Logie counter data
 This function allows you to bind together mulitple counter data files, remove errors and produce a master datafile.
 }
