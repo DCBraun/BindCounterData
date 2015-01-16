@@ -8,7 +8,7 @@
 #' @keywords Events
 #' @export
 
-plot.events.hour.ch<-function(data, first.day, site, year){
+events.hour.ch.plot<-function(data, first.day, site, year){
   
   data$date.alt<-strptime(data$date, '%Y-%m-%d')
   data$jday<-data$date.alt$yday
