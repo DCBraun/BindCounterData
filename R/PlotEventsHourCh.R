@@ -27,7 +27,7 @@ events.plot<-function(data, first.day, site, year){
   fig.name<-paste(getwd(), site, year, name, sep="")
   quartz(h,w, type="pdf", bg="white", file=fig.name, dpi=150)
   
-  par(mfrow=c(length(unique(events.hour$channel)),1), mar=c(4,2,1,2), oma=c(4,4,1,2), las=1)
+  par(mfrow=c(length(unique(events.hour1$channel)),1), mar=c(4,2,1,2), oma=c(4,4,1,2), las=1)
   events.hour.ch<-ddply(events.hour.channel, c("channel"), function(xx){
     
     plot(xx$no.events~as.POSIXct(xx$date.time.alt), main="", ylab="", ylim=c(0, max(events.hour.channel$no.events)*1.05), 		xlim=c(r[1], r[2]), xlab=paste("Channel ", xx$channel[1], sep=" "), type="l", lwd=2, axes=FALSE)
