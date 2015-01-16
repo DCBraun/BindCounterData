@@ -15,7 +15,7 @@ events.plot<-function(data, first.day, site, year){
   d1<-subset(data, jday>=first.day)
   
   events.hour1<-data.frame(subset(d1, description=="E"), no=1)
-  events.hour1$date.time.alt<-as.character(as.POSIXct(strptime(events.hour1$time, '%Y-%m-%d %H')))
+  events.hour1$date.time.alt<-as.character(as.POSIXct(strptime(paste(events.hour1$date, events.hour1$time,sep=" "), '%Y-%m-%d %H')))
   events.hour1$date.alt <- NULL
   events.hour.channel<-ddply(events.hour1, c("date.time.alt", "channel"), summarize, no.events=sum(no))
   events.hour.channel$date.time.alt<-as.POSIXct(strptime(events.hour.channel$date.time.alt, format="%Y-%m-%d %H"))
