@@ -8,6 +8,7 @@
 #' @export
 
 counter.data.cleanup<-function(path.to.folder, no.channels, site.name, year){
+  
   library(plyr)
   counter.paths <- dir(path.to.folder, full.names = TRUE)
   names(counter.paths) <- basename(counter.paths)
@@ -29,7 +30,7 @@ counter.data.cleanup<-function(path.to.folder, no.channels, site.name, year){
                              "description", 
                              "signal")
   
-  counter.data2<-subset(counter.data1, 
+  counter.data2<-filter(counter.data1, 
                         description=="U" | description=="D" | description=="E")
   #This removes erronious data or unwanted counter status data
   
@@ -39,7 +40,7 @@ counter.data.cleanup<-function(path.to.folder, no.channels, site.name, year){
   
   #write.csv(counter.data3, '~/Dropbox/Sample Counter Data/test.csv')
   counter.data4<-data.frame("file"=counter.data3$file, 
-                            "date.time"=as.POSIXlt(strptime(paste(counter.data3$date, counter.data3$time, sep="-"), format='%d/%m/%y-%H:%M:%S')),
+                            "date.time"=as.character(as.POSIXlt(strptime(paste(counter.data3$date, counter.data3$time, sep="-"), format='%d/%m/%y-%H:%M:%S'))),
                             "date"=as.character(as.POSIXlt(strptime(counter.data3$date, format="%d/%m/%y"))),
                             "time"=as.character(counter.data3$time),
                             "X"=as.numeric(counter.data3$X),
@@ -50,7 +51,8 @@ counter.data.cleanup<-function(path.to.folder, no.channels, site.name, year){
   counter.data5<-subset(counter.data4, channel<(no.channels+1))
   #removes any errors in channel number
   
-  counter.data6<-subset(counter.data5, time=unique(counter.data4$date.time))
+  counter.data6<-counter.data5[!duplicated(counter.data5[,c(2,6)]), ]
+  
   #removes any duplicate data
   
   counter.data<-droplevels(counter.data6)
@@ -58,7 +60,7 @@ counter.data.cleanup<-function(path.to.folder, no.channels, site.name, year){
   
   counter.data<-counter.data[order(counter.data$date.time),]
   #Now write a new text file with only the graphics data. The row names, column names and quotes must be removed.
-    
+  
   write.csv(x=counter.data[,-2], 
             file=paste(path.to.folder,
                        site.name, 
@@ -66,4 +68,4 @@ counter.data.cleanup<-function(path.to.folder, no.channels, site.name, year){
                        ".csv", 
                        sep=""), 
             row.names=FALSE)
-  }
+}
