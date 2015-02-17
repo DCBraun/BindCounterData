@@ -39,8 +39,7 @@ signal.data.cleanup<-function(path.to.folder, site.name, year){
                            "channel"=as.numeric(signal.data3$channel),
                            "description"=signal.data3$description,
                            "signal"=as.numeric(signal.data3$signal))
-  
-  signal.data<-subset(signal.data4, time=unique(signal.data4$time))
+  signal.data<-signal.data4[!duplicated(signal.data4[,c(2,6)]), ]
   signal.data<-signal.data[order(signal.data$time),]
   #try changing the encoding when exporting. Look at what the encoding is when using a PC. Load the graphics file onto Jan's computer.
   write.csv(x=signal.data[,-2], 
