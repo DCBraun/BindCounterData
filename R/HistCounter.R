@@ -8,9 +8,9 @@
 #' @keywords Histogram
 #' @export
 
+library(plyr)
 
 record.hist<-function(data, first.day, site, year){
-  library(plyr)
   data$date.alt<-strptime(data$date, '%Y-%m-%d')
   data$jday<-data$date.alt$yday
   d1<-subset(data, jday>=first.day)
@@ -54,10 +54,12 @@ record.hist<-function(data, first.day, site, year){
   quartz(h,w, type="pdf", bg="white", file=fig.name, dpi=150)
   par(mfrow=c(no.channels,1), mar=c(4,3,3,1), oma=c(2,2,1,0), las=1, xaxs="i", yaxs="i")
   
-  no.down<-ddply(subset(d1, description=="D"), c("channel"), function(xx){
-    hist(xx$signal, breaks=15, xlim=c(0, 130), main="", ylab="", xlab=paste("Channel ", xx$channel[1], sep=""), col="grey60")
-    no.down<-length(xx$signal)
-    data.frame(no.down)
+
+e<-subset(d1, description=="D" & channel==2)
+no.down<-ddply(subset(d1, description=="U"), c("channel"), function(xx){
+  hist(xx$signal, breaks=15, xlim=c(0, 130), main="", ylab="", xlab=paste("Channel ", xx$channel[1], sep=""), col="grey60")
+  no.down<-length(xx$signal)
+  data.frame(no.down)
   })
   
   mtext("Frequency of DOWN signal sizes", side=2, outer=TRUE, las=0)
