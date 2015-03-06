@@ -30,7 +30,7 @@ counter.data.cleanup<-function(path.to.folder, no.channels, site.name, year){
                              "description", 
                              "signal")
   
-  counter.data2<-filter(counter.data1, 
+  counter.data2<-subset(counter.data1, 
                         description=="U" | description=="D" | description=="E")
   #This removes erronious data or unwanted counter status data
   
