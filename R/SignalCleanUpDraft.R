@@ -13,7 +13,7 @@ signal.data.cleanup<-function(path.to.folder, site.name, year){
   #"\\.txt$" tells r that the files are text files.  
   signal.paths <- dir(path.to.folder, pattern = "\\.txt$", full.names = TRUE)
   names(signal.paths) <- basename(signal.paths)
-  
+  s
   signal.data1<-ldply(signal.paths, 
                       read.table, 
                       header=FALSE, 
